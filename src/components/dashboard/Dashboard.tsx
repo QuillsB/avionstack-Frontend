@@ -1,10 +1,23 @@
 import React, { Component } from 'react';
 
+import FlightCard from 'components/flightCard/FlightCard';
+
+import { FlightData, PaginationContent } from 'types/FlightType';
+import Status from 'types/StatusType';
+
 import 'styles/Dashboard.css';
 
-export interface DispatchProps {}
+export interface DispatchProps {
+  loadFlightData: Function;
+}
 
-export interface StateProps {}
+export interface StateProps {
+  flightData: {
+    pagination: PaginationContent,
+    data: FlightData[],
+  };
+  flightDataStatus: Status;
+}
 
 interface State {}
 
@@ -17,21 +30,32 @@ class Dashboard extends Component<Props, State> {
     };
   }
 
-  renderTabsPart() {
-    return (
-      <div>
+  componentDidMount() {
+    const { loadFlightData } = this.props;
+
+    loadFlightData();
+  }
+
+  renderContentPart() {
+    const { flightData: { data } } = this.props;
+
+    return data.map((item: FlightData, index) => (
+      <div className="flightCardContainer" key={index}>
+        <FlightCard flight={item} />
       </div>
-    );
+    ));
   }
 
   render() {
     return (
       <>
         <div className="dashboardContainer">
-          <div className="dashboardTabsContainer">
-            {this.renderTabsPart()}
+          <div className="filterMenuContainer"></div>
+          <div className="dashboardContentContainer">
+            <div className="contentPart">
+              {this.renderContentPart()}
+            </div>
           </div>
-          <p>Oui</p>
         </div>
       </>
     );

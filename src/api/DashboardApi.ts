@@ -1,7 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
-import baseUrl from 'constants/api';
+import { baseUrl, apiKey } from 'constants/api';
 
-const loadFlightData = ():  Promise<AxiosResponse> => axios.get(`${baseUrl}/flights?access_key=ce953361b2fa45f830b234fcf98d223d`);
+const loadFlightData = ():  Promise<AxiosResponse> =>
+  axios.get(`${baseUrl}/flights`, { params: { access_key: apiKey } });
 
 export default {
   loadFlightData,

@@ -4,16 +4,29 @@ import {
   LOAD_FLIGHT_DATA_FAILURE,
 } from 'actions/DashboardActions';
 
+import {
+  defaultPaginationContent,
+  FlightData,
+  PaginationContent,
+} from 'types/FlightType';
+
 import Status from 'types/StatusType';
+
 import { ActionType } from 'types/ActionsType';
 
 const initialState = {
-  flightData: [],
+  flightData: {
+    pagination: defaultPaginationContent,
+    data: []
+  },
   flightDataStatus: Status.DEFAULT,
 };
 
 export interface StateType {
-  flightData: string[];
+  flightData: {
+    pagination: PaginationContent,
+    data: FlightData[],
+  };
   flightDataStatus: Status;
 }
 
