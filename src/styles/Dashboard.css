@@ -1,0 +1,28 @@
+.dashboardContainer {
+  display: flex;
+}
+
+.filterMenuContainer {
+  background-color: #f0f2f5;
+  width: 20%;
+  height: 100vh;
+}
+
+.dashboardContentContainer {
+  width: 80%;
+  height: 100vh;
+}
+
+.contentPart {
+  width: 80%;
+  height: 80%;
+  margin-top: 80px;
+  margin-right: auto;
+  margin-left: auto;
+  overflow: auto;
+}
+
+.flightCardContainer {
+  display: inline-block;
+  width: 25%;
+}
