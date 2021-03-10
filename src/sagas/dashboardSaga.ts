@@ -8,13 +8,16 @@ import {
   loadFlightDataSuccess,
   loadFlightDataFailure,
   LOAD_FLIGHT_DATA,
+  LOAD_FLIGHT_DATA_ACTION,
 } from 'actions/DashboardActions';
 
 import { sortFlightData } from 'utils/sortFlightData';
 
-function* loadFlightDataFunction() {
+function* loadFlightDataFunction(action: LOAD_FLIGHT_DATA_ACTION) {
+  const { payload } = action;
+
   try {
-    const { data, status } = yield call(DashboardApi.loadFlightData);
+    const { data, status } = yield call(DashboardApi.loadFlightData, payload);
 
     if (status === 200) {
       yield put(loadFlightDataSuccess({ pagination: data.pagination, data: sortFlightData(data.data) }));

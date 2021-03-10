@@ -26,3 +26,18 @@
   display: inline-block;
   width: 25%;
 }
+
+.dashboardLogoContainer {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.dashboardLogo {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.dashboardFilterContainer {
+  margin-top: 30px;
+}

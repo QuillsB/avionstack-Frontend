@@ -1,3 +1,5 @@
+import { apiKey } from 'constants/api';
+
 export interface FilterParams {
   access_key: string;
   limit?: number;
@@ -7,3 +9,7 @@ export interface FilterParams {
   dep_icao?: string;
   arr_icao?: string;
 }
+
+export const defaultFilterParams: FilterParams = {
+  access_key: apiKey,
+};

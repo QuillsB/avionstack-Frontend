@@ -5,10 +5,16 @@ import FlightCard from 'components/flightCard/FlightCard';
 import { FlightData, PaginationContent } from 'types/FlightType';
 import Status from 'types/StatusType';
 
+import logo from 'assets/logo.png';
+
 import 'styles/Dashboard.css';
+import FilterDashboard from 'components/filterDashboard/FilterDashboard';
+import { apiKey } from 'constants/api';
+import Spinner from 'components/fragment/Spinner';
 
 export interface DispatchProps {
   loadFlightData: Function;
+  loadAirlinesData: Function;
 }
 
 export interface StateProps {
@@ -17,9 +23,17 @@ export interface StateProps {
     data: FlightData[],
   };
   flightDataStatus: Status;
+  airlinesData: string[];
+  airlinesDataStatus: Status;
 }
 
-interface State {}
+interface State {
+  access_key: string;
+  limit: number;
+  offset: number;
+  flight_status: string;
+  airline_name: string;
+}
 
 type Props = {} & DispatchProps & StateProps;
 
@@ -27,13 +41,58 @@ class Dashboard extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      access_key: apiKey,
+      limit: 100,
+      offset: 0,
+      flight_status: '',
+      airline_name: '',
     };
   }
 
   componentDidMount() {
-    const { loadFlightData } = this.props;
+    const { loadFlightData, loadAirlinesData } = this.props;
+    const { access_key, limit, offset, flight_status, airline_name } = this.state;
 
-    loadFlightData();
+    loadFlightData({
+      access_key,
+      limit,
+      offset,
+      flight_status,
+      airline_name,
+    });
+    loadAirlinesData();
+  }
+
+  onParamsChange = (value: string|number, name: string) => {
+    if (Object.prototype.hasOwnProperty.call(this.state, name)) {
+      this.setState(({ [name]: value === null ? "" : value } as unknown) as Pick<State, keyof State>);
+    }
+  };
+
+  onSubmitParams = () => {
+    const { loadFlightData } = this.props;
+    const { access_key, limit, offset, flight_status, airline_name } = this.state;
+    
+    loadFlightData({
+      access_key,
+      limit,
+      offset,
+      flight_status,
+      airline_name,
+    });
+  };
+
+  renderFilterPart() {
+    const { airlinesData } = this.props;
+    return (
+      <div className="dashboardFilterContainer">
+        <FilterDashboard
+          airlines={airlinesData}
+          onParamsChange={this.onParamsChange}
+          onSubmitParams={this.onSubmitParams}
+        />
+      </div>
+    );
   }
 
   renderContentPart() {
@@ -47,13 +106,24 @@ class Dashboard extends Component<Props, State> {
   }
 
   render() {
+    const { flightDataStatus } = this.props;
+
     return (
       <>
         <div className="dashboardContainer">
-          <div className="filterMenuContainer"></div>
+          <div className="filterMenuContainer">
+            <div className="dashboardLogoContainer">
+              <img src={logo} alt={"avionstack-logo"} className="dashboardLogo"/>
+            </div>
+            {this.renderFilterPart()}
+          </div>
           <div className="dashboardContentContainer">
             <div className="contentPart">
-              {this.renderContentPart()}
+              {flightDataStatus === Status.LOADING ? (
+                <Spinner colorized/>
+              ) : (
+                this.renderContentPart()
+              )}
             </div>
           </div>
         </div>

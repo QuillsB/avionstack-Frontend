@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
 
-import { dateToCleanDate } from 'utils/dateToCleanDate';
+import { dateToCleanDate, minutesBetweenDates } from 'utils/dateToCleanDate';
 
 import { FlightData } from 'types/FlightType';
 
-import 'styles/FlightCard.css';
+import FlightStatus from 'types/FlightStatusType';
 
+import 'styles/FlightCard.css';
 
 interface Props {
   flight: FlightData;
@@ -54,13 +55,15 @@ class FlightCard extends PureComponent<Props, State> {
       <>
         <div className={`flightCard ${flight.flight_status}`} onClick={this.handleClick}>
           <div className="cardLeftPart">
-              <img src={`https://daisycon.io/images/airline/?width=300&height=150&color=ffffff&iata=${flight.airline.iata}`} alt={flight.airline.name} className="cardLogo"/>
+              <img src={`https://daisycon.io/images/airline/?width=300&height=150&color=f0f2f5&iata=${flight.airline.iata}`} alt={flight.airline.name} className="cardLogo"/>
           </div>
           <div className="cardRightPart">
             <p className="cardTitle textColor"><strong>{flight.departure.iata} to {flight.arrival.iata}</strong></p>
             <div>
-              <p className="cardTitle">{dateToCleanDate(flight.departure.scheduled)}</p>
-              <p className="cardTitle" style={{"color": "red"}}>{flight.departure.delay && ` (+${flight.departure.delay}min)`}</p>
+              <p className="cardTitle resize">{dateToCleanDate(flight.departure.scheduled)}</p>
+              <p className="cardTitle resize" style={{"color": flight.departure.delay ? "red" : "#01CBB1"}}>
+                <strong>{flight.flight_status === FlightStatus.LANDED && minutesBetweenDates(flight)}</strong>
+              </p>
             </div>
           </div>
         </div>
