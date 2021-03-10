@@ -17,6 +17,7 @@ export interface FlightInfos {
   delay?: number;
   scheduled: string;
   estimated: string;
+  actual?: string;
 }
 
 export interface AirlineInfos {

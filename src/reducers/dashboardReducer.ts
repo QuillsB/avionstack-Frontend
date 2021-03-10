@@ -10,6 +10,8 @@ import {
   PaginationContent,
 } from 'types/FlightType';
 
+import { defaultFilterParams, FilterParams } from 'types/FilterParamsType';
+
 import Status from 'types/StatusType';
 
 import { ActionType } from 'types/ActionsType';
@@ -20,6 +22,7 @@ const initialState = {
     data: []
   },
   flightDataStatus: Status.DEFAULT,
+  flightParams: defaultFilterParams,
 };
 
 export interface StateType {
@@ -28,6 +31,7 @@ export interface StateType {
     data: FlightData[],
   };
   flightDataStatus: Status;
+  flightParams: FilterParams;
 }
 
 export default function dashboardState(state: StateType = initialState, action: ActionType): StateType {
@@ -36,6 +40,7 @@ export default function dashboardState(state: StateType = initialState, action: 
       return {
         ...state,
         flightDataStatus: Status.LOADING,
+        flightParams: action.payload,
       };
 
     case LOAD_FLIGHT_DATA_SUCCESS:
