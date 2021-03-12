@@ -5,6 +5,10 @@ export const sortFlightData = (data: FlightData[]): FlightData[] => {
     const scheduleA = new Date(a.departure.scheduled);
     const scheduleB = new Date(b.departure.scheduled);
 
+    if (isNaN(scheduleA.getTime()) || isNaN(scheduleB.getTime())) {
+      return -1;
+    }
+
     return (scheduleA < scheduleB ? -1 : 1)
   }));
 };

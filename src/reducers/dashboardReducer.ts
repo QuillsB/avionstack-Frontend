@@ -23,6 +23,7 @@ const initialState = {
   },
   flightDataStatus: Status.DEFAULT,
   flightParams: defaultFilterParams,
+  pagination: defaultPaginationContent,
 };
 
 export interface StateType {
@@ -32,6 +33,7 @@ export interface StateType {
   };
   flightDataStatus: Status;
   flightParams: FilterParams;
+  pagination: PaginationContent;
 }
 
 export default function dashboardState(state: StateType = initialState, action: ActionType): StateType {
@@ -48,6 +50,7 @@ export default function dashboardState(state: StateType = initialState, action: 
         ...state,
         flightDataStatus: Status.SUCCESS,
         flightData: action.payload,
+        pagination: action.payload.pagination,
       };
 
     case LOAD_FLIGHT_DATA_FAILURE:

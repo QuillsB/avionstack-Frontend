@@ -48,7 +48,7 @@ class FilterDashboard extends PureComponent<Props, State> {
         <div className="filtersContainer">
           <h2>Filters</h2>
           {this.renderAirlineFilter()}
-          <div onClick={this.submitParams} className="filterCardContainer filter-resize">
+          <div onClick={this.submitParams} className="filterCardContainer filterButton">
             <p className="filterCardTitle">Submit</p>
           </div>
         </div>

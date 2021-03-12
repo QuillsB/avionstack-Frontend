@@ -24,9 +24,10 @@
   display: block;
 }
 
-.filter-resize {
+.filterButton {
   padding: 0;
   width: 75%;
   margin-left: auto;
   margin-right: auto;
+  cursor: pointer;
 }
