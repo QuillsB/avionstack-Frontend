@@ -1,5 +1,3 @@
-import FlightStatus from "./FlightStatusType";
-
 export interface PaginationContent {
   limit: number;
   offset: number;
@@ -41,12 +39,12 @@ export interface AircraftInfos {
 
 export interface FlightData {
   flight_date: string;
-  flight_status: FlightStatus;
+  flight_status: string;
   departure: FlightInfos;
   arrival: FlightInfos;
   airline: AirlineInfos;
   flight: FlightSpecificInfos;
-  aircraft: AircraftInfos;
+  aircraft?: AircraftInfos;
 }
 
 export const defaultPaginationContent: PaginationContent = {

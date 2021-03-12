@@ -1,0 +1,40 @@
+.PaginationContainer {
+  width: 80%;
+  margin-top: 40px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.PaginationSelector {
+  display: flex;
+  width: 25%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.PageSelection {
+  width: 40px;
+  height: 40px;
+  margin-left: 5px;
+  margin-right: 5px;
+  text-align: center;
+  border: 2px #01CBB1 solid;
+  background-color: #f0f2f5;
+  border-radius: 57px;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+.PageSelection:hover {
+  border: 3px #01CBB1 solid;
+  font-weight: 600;
+}
+
+.PageSelected {
+  background-color: #01CBB1;
+  border: 2px #01CBB1 solid;
+}
+
+.Selector {
+  margin-top: 4px;
+}

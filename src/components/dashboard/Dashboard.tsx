@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
+import { apiKey } from 'constants/api';
+
 import FlightCard from 'components/flightCard/FlightCard';
+import FilterDashboard from 'components/filterDashboard/FilterDashboard';
+import Spinner from 'components/fragment/Spinner';
+import Pagination from 'containers/PaginationContainer/PaginationContainer';
 
 import { FlightData, PaginationContent } from 'types/FlightType';
 import Status from 'types/StatusType';
@@ -8,9 +13,6 @@ import Status from 'types/StatusType';
 import logo from 'assets/logo.png';
 
 import 'styles/Dashboard.css';
-import FilterDashboard from 'components/filterDashboard/FilterDashboard';
-import { apiKey } from 'constants/api';
-import Spinner from 'components/fragment/Spinner';
 
 export interface DispatchProps {
   loadFlightData: Function;
@@ -124,6 +126,9 @@ class Dashboard extends Component<Props, State> {
               ) : (
                 this.renderContentPart()
               )}
+            </div>
+            <div>
+              <Pagination />
             </div>
           </div>
         </div>
