@@ -35,11 +35,15 @@ interface State {
   offset: number;
   flight_status: string;
   airline_name: string;
+  time: string;
+  lastUpdate: string;
 }
 
 type Props = {} & DispatchProps & StateProps;
 
 class Dashboard extends Component<Props, State> {
+  intervalID: any;
+  updateID: any;
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -48,7 +52,11 @@ class Dashboard extends Component<Props, State> {
       offset: 0,
       flight_status: '',
       airline_name: '',
+      time: new Date().toLocaleString('en-US'),
+      lastUpdate: new Date().toLocaleString('en-US'),
     };
+    this.intervalID = 0;
+    this.updateID = 0;
   }
 
   componentDidMount() {
@@ -63,6 +71,28 @@ class Dashboard extends Component<Props, State> {
       airline_name,
     });
     loadAirlinesData();
+    this.intervalID = setInterval(
+      () => this.tick(),
+      1000
+    );
+    this.updateID = setInterval(
+      () => this.updateData(),
+      60000
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+    clearInterval(this.updateID);
+  }
+
+  tick() {
+    this.setState({ time: new Date().toLocaleString('en-US') });
+  }
+
+  updateData() {
+    this.onSubmitParams();
+    this.setState({ lastUpdate: new Date().toLocaleString('en-US') });
   }
 
   onParamsChange = (value: string|number, name: string) => {
@@ -86,8 +116,14 @@ class Dashboard extends Component<Props, State> {
 
   renderFilterPart() {
     const { airlinesData } = this.props;
+    const { time, lastUpdate } = this.state;
+
     return (
       <div className="dashboardFilterContainer">
+        <div className="dashboardTimersContainer">
+          <p>{`Actual Time: ${time}`}</p>
+          <p>{`Last Update: ${lastUpdate}`}</p>
+        </div>
         <FilterDashboard
           airlines={airlinesData}
           onParamsChange={this.onParamsChange}
