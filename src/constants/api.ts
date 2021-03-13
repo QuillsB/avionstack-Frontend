@@ -1,5 +1,5 @@
 let baseUrl = 'http://api.aviationstack.com/v1';
-let apiKey = 'ce953361b2fa45f830b234fcf98d223d';
+let apiKey = 'a51cb5177af3e257aebfffd8d769a3ee';
 
 export {
   baseUrl,

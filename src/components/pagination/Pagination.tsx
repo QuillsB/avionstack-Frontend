@@ -89,9 +89,6 @@ class Pagination extends Component<Props, State> {
   }
 
   render() {
-    const { paginationData } = this.props;
-
-    console.log(paginationData);
     return (
       <div className="PaginationContainer">
         {this.renderPageSelection()}
