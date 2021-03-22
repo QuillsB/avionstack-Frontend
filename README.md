@@ -7,6 +7,11 @@ I'm running node v10.19.0 and npm v6.13.4
 
 ## Getting Started
 
+Get an API key from https://aviationstack.com/documentation
+
+Add your API key in .env file at the root of the project.
+Example: REACT_APP_API_KEY=YOUR_API_KEY
+
 ```sh
 npm install
 npm start
